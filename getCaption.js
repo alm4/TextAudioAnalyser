@@ -12,8 +12,8 @@ var natural_language_understanding = new NaturalLanguageUnderstandingV1({
 
 nightmare    
     .goto('https://www.youtube.com/watch?v=hC4V7-CHHfs')    
-    .wait('[aria-label="More actions"]')
-    .click('[aria-label="More actions"]')
+    .wait('[aria-label="Mais ações"]')
+    .click('[aria-label="Mais ações"]')
     .wait('ytd-menu-service-item-renderer')
     .click('ytd-menu-service-item-renderer')
     .wait('#transcript > ytd-transcript-renderer #body ytd-transcript-body-renderer')
@@ -34,8 +34,21 @@ nightmare
 
         console.log(transcript);
         console.log("-----------------");
+
+        let result = ``
+
+        for (let prop in transcript) {
+            if(transcript.hasOwnProperty(prop)) {
+                if(transcript[prop] !== "")
+                    if(result === ``)
+                        result = `${transcript[prop]}`
+                    else
+                        result = `${result}, ${transcript[prop]}`
+            }
+        }
+
         var parameters = {
-            'text': "Niggas creepin' They gon' find you",
+            'text': result,
             'features': {
               'emotion': {
               },
