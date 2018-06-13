@@ -1,3 +1,7 @@
 Video name: Donald Trump's RNC Speech Condensed Into 2 Minutes | NBC News
-Cannot process video: Cannot find ffmpeg
+Converting...
+Cannot process video: ffmpeg exited with code 1: https protocol not found, recompile FFmpeg with openssl, gnutls or securetransport enabled.
+https://r2---sn-bg07dnlk.googlevideo.com/videoplayback?requiressl=yes&ei=TZMgW6K8F4viwQTqx4r4BA&initcwndbps=426250&source=youtube&ipbits=0&lmt=1469180013216443&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cnh%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cexpire&itag=43&fvip=2&nh=%2CIgpwcjAzLmdydTA2KgkxMjcuMC4wLjE&dur=0.000&clen=10624285&ratebypass=yes&c=WEB&key=yt6&mime=video%2Fwebm&id=o-AL_HMTZoNuu4B_2jOjyfgt3_mJICcpLLp3nrOcmeofvi&signature=DFA6AED5111A4A9329584E4421ECE72C0F0E3B93.AF434BDF05AC400C85854FF470D06BC9876F3FB1&ms=au%2Conr&mv=m&mt=1528861400&expire=1528883117&pl=24&mn=sn-bg07dnlk%2Csn-x1x7snl7&ip=45.4.63.13&mm=31%2C26&gir=yes: Protocol not found
+Did you mean file:https://r2---sn-bg07dnlk.googlevideo.com/videoplayback?requiressl=yes&ei=TZMgW6K8F4viwQTqx4r4BA&initcwndbps=426250&source=youtube&ipbits=0&lmt=1469180013216443&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cnh%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cexpire&itag=43&fvip=2&nh=%2CIgpwcjAzLmdydTA2KgkxMjcuMC4wLjE&dur=0.000&clen=10624285&ratebypass=yes&c=WEB&key=yt6&mime=video%2Fwebm&id=o-AL_HMTZoNuu4B_2jOjyfgt3_mJICcpLLp3nrOcmeofvi&signature=DFA6AED5111A4A9329584E4421ECE72C0F0E3B93.AF434BDF05AC400C85854FF470D06BC9876F3FB1&ms=au%2Conr&mv=m&mt=1528861400&expire=1528883117&pl=24&mn=sn-bg07dnlk%2Csn-x1x7snl7&ip=45.4.63.13&mm=31%2C26&gir=yes?
+
 internalServerErrorOnProcessingVideo. undefined

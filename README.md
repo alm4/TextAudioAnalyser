@@ -1,14 +1,14 @@
-## Obtenci�n de audios en MP3 y caption autogenerados desde Youtube
+## Getting MP3 audio and transcript from Youtube video
 
 
-1. MP3 desde Youtube
+1. MP3 through Youtube
     * npm install (horizon-youtube-mp3)
     * brew install ffmpeg
-    * getMP3.js -> Agregar la url del video del cual espera obtener el audio en la linea 8.
-    * Obtener audio en MP3: `node getMP3.js > example.txt`
+    * getMP3.js -> add video URL to get audio on line 8.
+    * Getting MP3 audio: `node getMP3.js > example.txt`
 
 2. Caption desde Youtube
-    * yarn (nightmare, cheerio, htmlEntities)
-    * getCaption.js -> Agregar la url del video del cual esperan obtener los caption en la linea 7 (dependiendo del idioma modificar linea 8 y 9 de 'M�s acciones' a 'More actions').
-    * Obtener video: `node getCaption.js`
+    * npm install or yarn (nightmare, cheerio, htmlEntities)
+    * getCaption.js -> add video URL to get transcript on line 7 (according to the language of PC change 'More actions' to 'Mais ações', to Portuguese/Brazil).
+    * Getting transcript: `node getCaption.js`
   
