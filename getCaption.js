@@ -11,9 +11,9 @@ var natural_language_understanding = new NaturalLanguageUnderstandingV1({
 });
 
 nightmare    
-    .goto('https://www.youtube.com/watch?v=hC4V7-CHHfs')    
-    .wait('[aria-label="Mais ações"]')
-    .click('[aria-label="Mais ações"]')
+    .goto('https://www.youtube.com/watch?v=uwf38MVMbc8')    
+    .wait('[aria-label="More actions"]')
+    .click('[aria-label="More actions"]')
     .wait('ytd-menu-service-item-renderer')
     .click('ytd-menu-service-item-renderer')
     .wait('#transcript > ytd-transcript-renderer #body ytd-transcript-body-renderer')
@@ -34,6 +34,8 @@ nightmare
 
         console.log(transcript);
         console.log("-----------------");
+        console.log("Correting text input");
+
 
         let result = ``
 
@@ -47,6 +49,13 @@ nightmare
             }
         }
 
+        console.log("-----------------");
+        console.log(result);
+        console.log("-----------------");
+        console.log("WATSOM SAID  : ");
+
+
+
         var parameters = {
             'text': result,
             'features': {
@@ -54,6 +63,12 @@ nightmare
               },
               'sentiment': {
               },
+              'categories': {
+                'limit': 2,
+              },
+              'concepts': {
+                'limit': 2,
+              }
             }
           }
           
