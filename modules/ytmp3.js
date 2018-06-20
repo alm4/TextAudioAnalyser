@@ -1,8 +1,10 @@
 const winston = require('winston');
 const auth = require('./auth.json');
 
+
 const fs = require('fs');
 
+const ffmpeg = require('fluent-ffmpeg');
 const ytdl = require('ytdl-core');
 const request = require('request');
 const getYoutubeID = require('get-youtube-id');
@@ -29,16 +31,32 @@ logger.add(new winston.transports.Console({
 
 function playMusic(nome, id) {
     let yt_link = 'https://www.youtube.com/watch?v=' + id;
-    let stream = ytdl(yt_link,
-		      {
-			  filter: 'audioonly',
-			  retries: 10
-		      }).pipe(fs.createWriteStream('a.mp3')); //nome é o título do vídeo que tava sendo usado para o nome do audio gerado
-    stream.on('error', error => {
-	logger.error('erro na stream:\n', error);
-    });
-    stream.on('end', () => logger.info('terminou de baixar'));
+    
     logger.info('comecei: ' + nome + ' com id: ' + id);
+    return new Promise(function(resolve, reject) {
+	let stream = ytdl(yt_link,
+			  {
+			      quality: 'highestaudio',
+			      filter: 'audioonly',
+			      retries: 10
+			  });
+	let start = Date.now();
+	ffmpeg(stream)
+	    .audioBitrate(128)
+	    .save('a.mp3')
+	    .on('end', () => {
+		logger.info(`terminou de salvar dps de ${(Date.now() - start) / 1000}s`);
+		fs.rename('a.mp3', 'a.raw', err => {
+		    if (err) {
+			throw err;
+			reject(err);
+			logger.error(err);
+		    } else {
+			resolve('uhuu');
+		    }			
+		});
+	    });
+    });
 }
 
 function getID(str, callback) {
@@ -70,20 +88,25 @@ function isYoutube(str) {
 }
 
 function play(searchStr) {
-    getID(searchStr, id => {
-	if (!id) {
-	    logger.error('Não encontrei nenhum vídeo, eu acho.');
-	    return;
-	}
-	fetchVideoInfo(id, (err, videoInfo) => {
-	    if (err) {
-		logger.error(err);//throw new Error(err);
-		return;
+    return new Promise(function(resolve, reject) {
+	getID(searchStr, id => {
+	    if (!id) {
+		logger.error('Não encontrei nenhum vídeo, eu acho.');
+		reject('nenhum vid');
+	    } else {
+		fetchVideoInfo(id, (err, videoInfo) => {
+		    if (err) {
+			logger.error(err);//throw new Error(err);
+			reject(err);
+		    }
+		    let yt_link = videoInfo.url;
+		    let duration = prettyTime(videoInfo.duration);
+		    let nome = videoInfo.title + ' (' + duration + ')';
+		    playMusic(nome, id)
+			.then(data => resolve(data))
+			.catch(error => reject(error));
+		});
 	    }
-	    let yt_link = videoInfo.url;
-	    let duration = prettyTime(videoInfo.duration);
-	    let nome = videoInfo.title + ' (' + duration + ')';
-	    playMusic(nome, id);
 	});
     });
 }
