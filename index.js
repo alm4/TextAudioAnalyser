@@ -7,6 +7,6 @@ let urlVideo = ""
 
 getVoice.play('https://www.youtube.com/watch?v=hC4V7-CHHfs');
 
-//getCaption.getEmotion('https://www.youtube.com/watch?v=uwf38MVMbc8');
+getCaption.getEmotion('https://www.youtube.com/watch?v=hC4V7-CHHfs');
 
-//emotionAudio.syncRecogniseEmotion("./data/reconstructed.wav");
+//emotionAudio.syncRecogniseEmotion("./a.mp3");
