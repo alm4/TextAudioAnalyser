@@ -5,11 +5,11 @@
     * This run the entire project
 
 2. MP3 through Youtube
-    * npm install (horizon-youtube-mp3)
+    * We are using many extensions, npm install working for all
     * brew install ffmpeg
-    * getMP3.js -> add video URL to get audio on line 8.
+    * ytmp3.js -> add video URL, as param play function, to get audio on line 8.
 
-2. Caption through Youtube
+3. Caption through Youtube
     * npm install or yarn (nightmare, cheerio, htmlEntities)
     * getCaption.js -> add video URL to get transcript on line 7 (according to the language of PC change 'More actions' to 'Mais ações', to Portuguese/Brazil).
 
