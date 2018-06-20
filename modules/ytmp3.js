@@ -33,7 +33,7 @@ function playMusic(nome, id) {
 		      {
 			  filter: 'audioonly',
 			  retries: 10
-		      }).pipe(fs.createWriteStream(nome + '.mp3'));
+		      }).pipe(fs.createWriteStream('a.mp3')); //nome é o título do vídeo que tava sendo usado para o nome do audio gerado
     stream.on('error', error => {
 	logger.error('erro na stream:\n', error);
     });
