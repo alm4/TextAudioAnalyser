@@ -1,4 +1,8 @@
 {
+  "name": "multimidia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "ffmpeg": "0.0.4",
@@ -6,6 +10,13 @@
     "horizon-youtube-mp3": "^1.9.0",
     "html-entities": "^1.2.1",
     "nightmare": "^3.0.0",
-    "watson-developer-cloud": "^3.4.5"
-  }
+    "watson-developer-cloud": "^3.4.5",
+    "deep-affects": "^0.1.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
 }

@@ -10,5 +10,5 @@
 2. Caption desde Youtube
     * npm install or yarn (nightmare, cheerio, htmlEntities)
     * getCaption.js -> add video URL to get transcript on line 7 (according to the language of PC change 'More actions' to 'Mais ações', to Portuguese/Brazil).
-    * Getting transcript: `node getCaption.js` 
+    * Getting transcript: `node getCaption.js`
   
