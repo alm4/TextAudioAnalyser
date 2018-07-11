@@ -25,7 +25,7 @@ function sendToBack() {
     axios.post(`${url}get-analyse-text`, data)
     .then(res => {
         let result = manipulationOfDatas(res.data);
-        console.log(result);
+        plotGraph(result);
     })
     .catch(err => {
         console.log(err);
@@ -33,11 +33,41 @@ function sendToBack() {
     
 }
 
+function plotGraph(data) {
+    
+    let marksCanvas = document.getElementById("marksChart");
+
+    let marksData = {
+        labels: data.labels,
+        datasets: [
+            {
+                label: "Audio",
+                backgroundColor: "rgba(200, 010, 000, 0.7)",
+            
+            
+                data: data.audio
+            },
+            {
+                label: "Text",
+                backgroundColor: "rgba(000, 255, 000, 0.4)",
+            
+                data: data.text
+            },
+        ]
+    };
+
+    let radarChart = new Chart(marksCanvas, {
+        type: 'radar',
+        data: marksData
+    });
+}
+
 function manipulationOfDatas(data) {
     let text = data.text;
     let audio = data.audio;
 
     let dataSets = {
+        labels: [],
         audio: [],
         text: [],
     };
@@ -45,6 +75,7 @@ function manipulationOfDatas(data) {
     for(let i = 0; i < audio.length; i++) {
         let emotion = audio[i].emotion;
         if(match = emotionMatch[emotion]) {
+            dataSets.labels.push(emotionMatch[emotion]);
             dataSets.text.push(text[match]);
             dataSets.audio.push(audio[i].score);
         }
