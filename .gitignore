@@ -3,4 +3,5 @@
 node_modules
 
 .mp3
+.raw
 .log

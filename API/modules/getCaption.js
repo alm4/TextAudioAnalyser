@@ -10,7 +10,8 @@ var natural_language_understanding = new NaturalLanguageUnderstandingV1({
   'version': '2018-03-16'
 });
 
-function getEmotion(url) {
+function getEmotion(url, callback) {
+
     nightmare
         .goto(url)    
         .wait('[aria-label="Mais ações"]')
@@ -70,10 +71,13 @@ function getEmotion(url) {
             }
             
             natural_language_understanding.analyze(parameters, function(err, response) {
-                if (err)
+                if (err) {
                     console.log('error:', err);
-                else
-                    console.log(JSON.stringify(response, null, 2));
+                }
+                else {
+                    //console.log(JSON.stringify(response, null, 2));
+                    callback(response);
+                }
             });
 
         })

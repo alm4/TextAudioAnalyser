@@ -7,16 +7,8 @@ UserSecurity.apiKey = 'Ng7QuXBpfUTzLLWm22qSr3Id9ezkVJAf';
 
 var apiInstance = new DeepAffects.EmotionApi();
 
-var callback = function(error, data, response) {
-    if (error) {
-        console.error(error);
-    } else {
-        console.log('API called successfully. Returned data: ' + data);
-        console.log(response.text)
-    }
-};
 // sync request
-function syncRecogniseEmotion(path) {
+function syncRecogniseEmotion(path, callback) {
     let body = DeepAffects.Audio.fromFile(path); // {Audio} Audio object
     apiInstance.syncRecogniseEmotion(body, callback);
 }
