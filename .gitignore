@@ -2,7 +2,7 @@
 
 node_modules
 
-.mp3
-.raw
-.raw
-.log
+*.mp3
+*.raw
+*.raw
+*.log
