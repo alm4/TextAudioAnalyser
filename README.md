@@ -1,7 +1,7 @@
 ## Getting MP3 audio and transcript from Youtube video and does text and audio analysis
 
 1. Running
-    * Just run: `node index.js`
+    * Just run: `node server.js`
     * This run the entire project
 
 2. MP3 through Youtube
