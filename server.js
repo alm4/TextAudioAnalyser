@@ -2,19 +2,21 @@
 
 let http = require('http');
 let express = require('express');
+let path = require('path');
 
 let app = express();
-let port = process.env.port || 3000;
+let port = process.env.port || 3000
 
 const API = require('./API');
 
+app.use(express.static(__dirname + '/web'));
+
 app.get('/', function(req, res) {
-    res.send({dale: 'test'});
+    res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.post('/get-analyse-text', function(req, res) {
     API.getAnalyseText('https://www.youtube.com/watch?v=hC4V7-CHHfs', function(data) {
-        console.log("Daleee: ", data.emotion.document.emotion);
         res.send(data);
     });
 });
@@ -24,8 +26,6 @@ app.post('/get-analyse-audio', function(req, res) {
         if (err) {
             console.error(err);
         } else {
-            console.log('API called successfully.');
-            console.log(response.text);
             res.send(response.text);
         }
     });
