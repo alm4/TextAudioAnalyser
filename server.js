@@ -18,15 +18,22 @@ app.get('/', function(req, res) {
 });
 
 app.post('/get-analyse-text', function(req, res) {
-    console.log(req.body);
-    API.getAnalyseText('https://www.youtube.com/watch?v=hC4V7-CHHfs', function(data) {
+    API.getAnalyseText(req.body.url, function(data) {
         console.log(data.emotion.document.emotion);
-        res.send(data);
+        axios.post(`http://localhost:3000/get-analyse-audio`, {url: req.body.url})
+        .then(response => {
+            let infos = {
+                text: data.emotion.document.emotion,
+                audio: response.data
+            }
+            res.send(infos);
+        })
+        .catch(err => {});
     });
 });
 
 app.post('/get-analyse-audio', function(req, res) {
-    API.getAnalyseAudio('https://www.youtube.com/watch?v=hC4V7-CHHfs', function(err, data, response) {
+    API.getAnalyseAudio(req.body.url, function(err, data, response) {
         if (err) {
             console.error(err);
         } else {

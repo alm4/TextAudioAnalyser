@@ -7,12 +7,14 @@ var mainMod = angular.module('MainApp', []);
             });
 
 function sendToBack() {
+
+    let urlVideo = document.getElementById("hello").value;
     
-    let a = {
-        isso: "as"
+    let data = {
+        url: urlVideo
     }
 
-    axios.post(`${url}get-analyse-text`, a)
+    axios.post(`${url}get-analyse-text`, data)
     .then(res => {
         console.log(res.data);
     })
@@ -20,24 +22,4 @@ function sendToBack() {
         console.log(err);
     });
     
-    // let data = JSON.stringify({
-    //     "url": 'https://www.youtube.com/watch?v=hC4V7-CHHfs'
-    // });
-
-    // $.post(url + "get-analyse-text", {name: "John", time: "2pm"}, function(data) {
-    //     console.log("Data Loaded: " + data);
-    // });
-
-    // let xhr = new XMLHttpRequest();
-    // xhr.open("POST", url + 'get-analyse-text', true);
-
-
-    // //Send the proper header information along with the request
-    // xhr.setRequestHeader("Content-Type", "application/json");
-    // xhr.onreadystatechange = function() {
-    //     if(this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-    //         console.log(this.responseText);
-    //     }
-    // }
-    // xhr.send(data);
 }
