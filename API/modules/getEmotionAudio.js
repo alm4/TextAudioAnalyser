@@ -3,7 +3,7 @@ var defaultClient = DeepAffects.ApiClient.instance;
 
 // Configure API key authorization: UserSecurity
 var UserSecurity = defaultClient.authentications['UserSecurity'];
-UserSecurity.apiKey = 'Ng7QuXBpfUTzLLWm22qSr3Id9ezkVJAf';
+UserSecurity.apiKey = 'oJigW5ah4f4xQNBkjW4WQfPCthyWCZmR';
 
 var apiInstance = new DeepAffects.EmotionApi();
 
@@ -14,7 +14,7 @@ function syncRecogniseEmotion(path, callback) {
 }
 
 /* async request
-webhook = "https://proxy.api.deepaffects.com/audio/generic/api/v1/async/recognise_emotion?apiKey=Ng7QuXBpfUTzLLWm22qSr3Id9ezkVJAf"
+webhook = "https://proxy.api.deepaffects.com/audio/generic/api/v1/async/recognise_emotion?apiKey=oJigW5ah4f4xQNBkjW4WQfPCthyWCZmR"
 apiInstance.asyncRecogniseEmotion(body, webhook, callback);*/
 
 module.exports.syncRecogniseEmotion = syncRecogniseEmotion;

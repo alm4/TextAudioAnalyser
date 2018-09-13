@@ -3,6 +3,19 @@ const nightmare = Nightmare({ show: true });
 const cheerio = require('cheerio');
 const htmlEntities = require('html-entities').AllHtmlEntities;
 
+// Imports the Google Cloud client library
+const {Translate} = require('@google-cloud/translate');
+
+// Your Google Cloud Platform project ID
+const projectId = 'f4712f42ef2d4ed7cf0a6508dfda3dbe5cca603a';
+
+// Instantiates a client
+const translate = new Translate({
+  projectId: projectId,
+});
+
+//var googleTranslate = require('google-translate')('AIzaSyCwiDzro_Ac_fro7ml8m8pNGNTUiaPYJdk');
+
 var NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
 var natural_language_understanding = new NaturalLanguageUnderstandingV1({
   'username': '7aef01db-a03c-4b75-9ccf-bc88dd993152',
@@ -14,8 +27,8 @@ function getEmotion(url, callback) {
 
     nightmare
         .goto(url)    
-        .wait('[aria-label="Mais ações"]')
-        .click('[aria-label="Mais ações"]')
+        .wait('.dropdown-trigger.style-scope.ytd-menu-renderer > button.style-scope.yt-icon-button')//.wait('[aria-label="Mais ações"]')
+        .click('.dropdown-trigger.style-scope.ytd-menu-renderer > button.style-scope.yt-icon-button')//.click('[aria-label="Mais ações"]')
         .wait('ytd-menu-service-item-renderer')
         .click('ytd-menu-service-item-renderer')
         .wait('#transcript > ytd-transcript-renderer #body ytd-transcript-body-renderer')
@@ -36,8 +49,8 @@ function getEmotion(url, callback) {
 
             console.log(transcript);
             console.log("-----------------");
-            console.log("Correting text input");
 
+            console.log("Correting text input");
 
             let result = ``
 
@@ -54,31 +67,73 @@ function getEmotion(url, callback) {
             console.log("-----------------");
             console.log(result);
             console.log("-----------------");
-            console.log("WATSOM SAID  : ");
 
-            var parameters = {
-                'text': result,
-                'features': {
-                'emotion': {},
-                'sentiment': {},
-                'categories': {
-                    'limit': 2,
-                },
-                'concepts': {
-                    'limit': 2,
+            /**
+             * TODO(developer): Uncomment the following lines before running the sample.
+             */
+
+            const text = result;
+            const target = 'en';
+
+            // Translates the text into the target language. "text" can be a string for
+            // translating a single piece of text, or an array of strings for translating
+            // multiple texts.
+
+            translate
+              .translate(text, target)
+              .then(results => {
+                const translation = results[0];
+
+                //console.log("");
+                //console.log(`Text: ${text}`);
+                //console.log("");
+                //console.log(`Translation: ${translation}`);
+                //console.log("");
+
+                //return translation;
+
+                console.log("-----------------");
+
+                console.log("Translated text input");
+                console.log("-----------------");
+                console.log(translation);
+                console.log("-----------------");
+
+                console.log("WATSOM SAID  : ");
+
+                var parameters = {
+                    'text': translation,
+                    'features': {
+                    'emotion': {},
+                    'sentiment': {},
+                    'categories': {
+                        'limit': 2,
+                    },
+                   'concepts': {
+                        'limit': 2,
+                    }
+                   }
                 }
-                }
-            }
             
-            natural_language_understanding.analyze(parameters, function(err, response) {
-                if (err) {
-                    console.log('error:', err);
-                }
-                else {
-                    //console.log(JSON.stringify(response, null, 2));
-                    callback(response);
-                }
-            });
+                natural_language_understanding.analyze(parameters, function(err, response) {
+                   if (err) {
+                      console.log('error:', err);
+                   }
+                   else {
+                      //console.log(JSON.stringify(response, null, 2));
+                      callback(response);
+                  }
+                });
+
+              })
+              .catch(err => {
+                 console.error('ERROR:', err);
+              });
+
+            //googleTranslate.translate(result, 'en', function(err, translation) {
+            //  console.log(translation.translatedText);
+            //  result = translation.translatedText;
+            //});
 
         })
         .catch(error => {
