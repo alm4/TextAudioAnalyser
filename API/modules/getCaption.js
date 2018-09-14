@@ -12,6 +12,7 @@ const projectId = 'f4712f42ef2d4ed7cf0a6508dfda3dbe5cca603a';
 // Instantiates a client
 const translate = new Translate({
   projectId: projectId,
+  keyFilename: './Translate-Analyzer-f4712f42ef2d.json'
 });
 
 //var googleTranslate = require('google-translate')('AIzaSyCwiDzro_Ac_fro7ml8m8pNGNTUiaPYJdk');
