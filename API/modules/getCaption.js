@@ -1,5 +1,5 @@
 const Nightmare = require('nightmare');
-const nightmare = Nightmare({ show: false });
+const nightmare = Nightmare({ show: true });
 const cheerio = require('cheerio');
 const htmlEntities = require('html-entities').AllHtmlEntities;
 
