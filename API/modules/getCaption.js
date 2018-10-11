@@ -3,7 +3,7 @@ const nightmare = Nightmare({ show: true });
 const cheerio = require('cheerio');
 const htmlEntities = require('html-entities').AllHtmlEntities;
 
-const getYoutubeSubtitles = require('get-youtube-subtitles-node');
+const getYoutubeSubtitles = require('@joegesualdo/get-youtube-subtitles-node');
 
 // Imports the Google Cloud client library
 const { Translate } = require('@google-cloud/translate');
