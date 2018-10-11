@@ -26,7 +26,6 @@ var natural_language_understanding = new NaturalLanguageUnderstandingV1({
 
 function getEmotion(url, callback) {
 
-    console.log("I am here");
     nightmare
         .goto(url)
         .wait('.dropdown-trigger.style-scope.ytd-menu-renderer > button.style-scope.yt-icon-button') //.wait('[aria-label="Mais ações"]')
