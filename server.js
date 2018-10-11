@@ -5,18 +5,13 @@ let express = require('express');
 let path = require('path');
 let axios = require('axios');
 
-//var cors = require('cors');
-
-// use it before all route definitions
-//app.use(cors({ origin: 'http://with-emotion.cin.ufpe.br:3000' }));
-
 let app = express();
 
 // Add headers
 app.use(function(req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://youtube.com');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -47,7 +42,7 @@ app.get('/', function(req, res) {
 app.post('/get-analyse-text', function(req, res) {
     API.getAnalyseText(req.body.url, function(data) {
         console.log(data.emotion.document.emotion);
-        axios.post(`http://with-emotion.cin.ufpe.br:3000/get-analyse-audio`, { url: req.body.url })
+        axios.post(`http://localhost:3000/get-analyse-audio`, { url: req.body.url })
             .then(response => {
                 let infos = {
                     text: data.emotion.document.emotion,

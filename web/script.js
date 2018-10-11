@@ -1,5 +1,5 @@
 let src = "https://code.angularjs.org/1.3.8/angular.min.js"
-let url = "http://with-emotion.cin.ufpe.br:3000/"
+let url = "http://localhost:3000/"
 
 let emotionMatch = {
     "sad": "sadness",
