@@ -4,7 +4,7 @@ const getCaption = require('./modules/getCaption');
 const emotionAudio = require('./modules/getEmotionAudio');
 
 function getAnalyseText(urlVideo, callback) {
-    
+
     getCaption.getEmotion(urlVideo, function(data) {
         callback(data);
     });

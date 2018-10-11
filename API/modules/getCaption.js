@@ -28,7 +28,8 @@ var natural_language_understanding = new NaturalLanguageUnderstandingV1({
 
 function getEmotion(url, callback) {
 
-    let videoId = 'q_q61B-DyPk'
+
+    let videoId = url.substring(url.indexOf("v=") + 2);
 
     getYoutubeSubtitles(videoId)
         .then(subtitles => {
