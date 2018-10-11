@@ -12,19 +12,11 @@ let axios = require('axios');
 
 let app = express();
 
-let port = process.env.port || 3000
-
-const API = require('./API');
-
-app.use(express.static(__dirname + '/web'));
-
-app.use(require('body-parser').json());
-
 // Add headers
 app.use(function(req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://with-emotion.cin.ufpe.br:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://youtube.com');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -39,6 +31,14 @@ app.use(function(req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+let port = process.env.port || 3000
+
+const API = require('./API');
+
+app.use(express.static(__dirname + '/web'));
+
+app.use(require('body-parser').json());
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
