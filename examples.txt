@@ -13,3 +13,122 @@ https://www.youtube.com/watch?v=QE783r8P50A
 
 bolsonaro
 https://www.youtube.com/watch?v=cwry5JgTt6U
+
+
+
+function getEmotion(url, callback) {
+
+    nightmare
+        .goto(url)
+        .wait('.dropdown-trigger.style-scope.ytd-menu-renderer > button.style-scope.yt-icon-button') //.wait('[aria-label="Mais ações"]')
+        .click('.dropdown-trigger.style-scope.ytd-menu-renderer > button.style-scope.yt-icon-button') //.click('[aria-label="Mais ações"]')
+        .wait('ytd-menu-service-item-renderer')
+        .click('ytd-menu-service-item-renderer')
+        .wait('#transcript > ytd-transcript-renderer #body ytd-transcript-body-renderer')
+        .evaluate(() => {
+            // const elements = document.querySelector('#transcript > ytd-transcript-renderer #body ytd-transcript-body-renderer').innerHTML;
+            return document.querySelector('#transcript > ytd-transcript-renderer #body ytd-transcript-body-renderer')
+                .innerHTML;
+        })
+        .end()
+        .then(content => {
+            const $ = cheerio.load(content);
+
+            const elems = $('.cue-group-start-offset');
+            const transcript = {};
+            elems.each(function(index, element) {
+                transcript[$(element).html().trim()] = htmlEntities.decode($(element).next().children().html().trim());
+            });
+
+            console.log(transcript);
+            console.log("-----------------");
+
+            console.log("Correct text input");
+
+            let result = ``
+
+            for (let prop in transcript) {
+                if (transcript.hasOwnProperty(prop)) {
+                    if (transcript[prop] !== "")
+                        if (result === ``)
+                            result = `${transcript[prop]}`
+                        else
+                            result = `${result}, ${transcript[prop]}`
+                }
+            }
+
+            console.log("-----------------");
+            console.log(result);
+            console.log("-----------------");
+
+            /**
+             * TODO(developer): Uncomment the following lines before running the sample.
+             */
+
+            const text = result;
+            const target = 'en';
+
+            // Translates the text into the target language. "text" can be a string for
+            // translating a single piece of text, or an array of strings for translating
+            // multiple texts.
+
+            translate
+                .translate(text, target)
+                .then(results => {
+                    const translation = results[0];
+
+                    //console.log("");
+                    //console.log(`Text: ${text}`);
+                    //console.log("");
+                    //console.log(`Translation: ${translation}`);
+                    //console.log("");
+
+                    //return translation;
+
+                    console.log("-----------------");
+
+                    console.log("Translated text input");
+                    console.log("-----------------");
+                    console.log(translation);
+                    console.log("-----------------");
+
+                    console.log("WATSOM SAID  : ");
+
+                    var parameters = {
+                        'text': translation,
+                        'features': {
+                            'emotion': {},
+                            'sentiment': {},
+                            'categories': {
+                                'limit': 2,
+                            },
+                            'concepts': {
+                                'limit': 2,
+                            }
+                        }
+                    }
+
+                    natural_language_understanding.analyze(parameters, function(err, response) {
+                        if (err) {
+                            console.log('error:', err);
+                        } else {
+                            //console.log(JSON.stringify(response, null, 2));
+                            callback(response);
+                        }
+                    });
+
+                })
+                .catch(err => {
+                    console.error('ERROR:', err);
+                });
+
+            //googleTranslate.translate(result, 'en', function(err, translation) {
+            //  console.log(translation.translatedText);
+            //  result = translation.translatedText;
+            //});
+
+        })
+        .catch(error => {
+            console.error('Search failed:', error)
+        });
+}

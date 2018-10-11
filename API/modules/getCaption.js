@@ -3,6 +3,8 @@ const nightmare = Nightmare({ show: true });
 const cheerio = require('cheerio');
 const htmlEntities = require('html-entities').AllHtmlEntities;
 
+const getYoutubeSubtitles = require('get-youtube-subtitles-node');
+
 // Imports the Google Cloud client library
 const { Translate } = require('@google-cloud/translate');
 
@@ -26,44 +28,14 @@ var natural_language_understanding = new NaturalLanguageUnderstandingV1({
 
 function getEmotion(url, callback) {
 
-    nightmare
-        .goto(url)
-        .wait('.dropdown-trigger.style-scope.ytd-menu-renderer > button.style-scope.yt-icon-button') //.wait('[aria-label="Mais ações"]')
-        .click('.dropdown-trigger.style-scope.ytd-menu-renderer > button.style-scope.yt-icon-button') //.click('[aria-label="Mais ações"]')
-        .wait('ytd-menu-service-item-renderer')
-        .click('ytd-menu-service-item-renderer')
-        .wait('#transcript > ytd-transcript-renderer #body ytd-transcript-body-renderer')
-        .evaluate(() => {
-            // const elements = document.querySelector('#transcript > ytd-transcript-renderer #body ytd-transcript-body-renderer').innerHTML;
-            return document.querySelector('#transcript > ytd-transcript-renderer #body ytd-transcript-body-renderer')
-                .innerHTML;
-        })
-        .end()
-        .then(content => {
-            const $ = cheerio.load(content);
+    let videoId = 'q_q61B-DyPk'
 
-            const elems = $('.cue-group-start-offset');
-            const transcript = {};
-            elems.each(function(index, element) {
-                transcript[$(element).html().trim()] = htmlEntities.decode($(element).next().children().html().trim());
-            });
+    getYoutubeSubtitles(videoId)
+        .then(subtitles => {
 
-            console.log(transcript);
-            console.log("-----------------");
+            console.log(subtitles)
 
-            console.log("Correting text input");
-
-            let result = ``
-
-            for (let prop in transcript) {
-                if (transcript.hasOwnProperty(prop)) {
-                    if (transcript[prop] !== "")
-                        if (result === ``)
-                            result = `${transcript[prop]}`
-                        else
-                            result = `${result}, ${transcript[prop]}`
-                }
-            }
+            result = subtitles;
 
             console.log("-----------------");
             console.log(result);
@@ -130,15 +102,11 @@ function getEmotion(url, callback) {
                     console.error('ERROR:', err);
                 });
 
-            //googleTranslate.translate(result, 'en', function(err, translation) {
-            //  console.log(translation.translatedText);
-            //  result = translation.translatedText;
-            //});
-
         })
-        .catch(error => {
-            console.error('Search failed:', error)
-        });
+        .catch(err => {
+            console.log(err)
+        })
+
 }
 
 module.exports.getEmotion = getEmotion;
